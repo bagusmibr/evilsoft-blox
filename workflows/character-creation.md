@@ -32,12 +32,17 @@ Search the web for:
 - Color hex codes or BrickColor equivalents for accurate color matching
 - Roblox Catalog free accessories that match (search: `site:roblox.com/catalog [character trait] free`)
 
-### 2c. Roblox Catalog Search
+### 2c. Roblox Catalog Search & 3D Generation Planning
 Search Roblox Catalog/Toolbox for free assets:
 - Hair accessories matching the character's hairstyle
 - Hat/headwear if applicable
-- Face accessories (scarf, mask, glasses, etc.)
 - Shirts/pants (classic clothing) if available for free
+
+**Face Decals:** 
+Do NOT use default Roblox faces. Search for custom face decals using `search_asset` with `assetType="Image"` (e.g. `search_asset(query="anime face", assetType="Image")`).
+
+**3D Mesh Generation (No Primitives):**
+If an accessory (like a mask, glasses, sword, backpack) is not found in the Catalog, DO NOT build it from primitives. Instead, plan to use the `generate_mesh` MCP tool to create a custom 3D mesh for it.
 
 For each found asset, record:
 - Asset Name
@@ -98,8 +103,7 @@ Body Material:    [SmoothPlastic / Fabric / Metal / etc.]
 ACCESSORIES (Free from Roblox Catalog)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 [Slot]       | [Asset Name]               | ID: [AssetID]
-[Slot]       | [Asset Name]               | ID: [AssetID]
-[Slot]       | [Built from primitives]    | (no catalog asset)
+[Slot]       | [AI Generated 3D Mesh]     | (via generate_mesh)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ADDITIONAL FEATURES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -186,11 +190,11 @@ Use MCP `insert_asset` for each accessory ID found in research:
 insert_asset(assetId = [ASSET_ID], location = charFolder)
 ```
 
-If insert fails: build equivalent from primitives, notify user.
+If insert fails or asset wasn't found: DO NOT build from primitives. Instead, use the `generate_mesh` MCP tool to create a 3D model for the accessory and attach it.
 
 ### 4d. Apply Face, Shirt, Pants
 
-Insert via asset IDs if found. Apply via Humanoid.
+Apply the Image ID found via `search_asset(assetType="Image")` to the character's Head `Decal` (Texture). Do not leave the default face. Insert clothing via asset IDs. Apply via Humanoid.
 
 ### 4e. Add Special Effects (if any)
 
@@ -218,8 +222,8 @@ WHAT WAS BUILT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✓ Body colors applied to all [6/15] limbs
 ✓ Accessories inserted: [list]
-✓ [X] accessories built from primitives: [list]
-✓ Face applied: [yes/no]
+✓ [X] accessories AI-generated (3D Mesh): [list]
+✓ Custom Face applied (Image ID): [yes/no]
 ✓ Clothing applied: [yes/no]
 ✓ Special effects: [list or none]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

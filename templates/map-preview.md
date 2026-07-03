@@ -23,9 +23,9 @@ Zone 1: [Zone Name]
   Purpose:     [What this area is / what happens here]
   Atmosphere:  [Bright / Dark / Cozy / Tense / etc.]
   Key Props:   
-    • [Prop 1] — [source: Toolbox ID xxxxx / Built from scratch]
-    • [Prop 2] — [source: Toolbox ID xxxxx / Built from scratch]
-    • [Prop 3] — [source: Toolbox ID xxxxx / Built from scratch]
+    • [Prop 1] — [source: Toolbox ID xxxxx / AI Generated Mesh]
+    • [Prop 2] — [source: Toolbox ID xxxxx / AI Generated Mesh]
+    • [Prop 3] — [source: Toolbox ID xxxxx / AI Generated Mesh]
   Lighting:    [PointLight / SpotLight / Neon ambient / etc.]
 
 Zone 2: [Zone Name]
@@ -47,12 +47,13 @@ Asset Name              | Asset ID    | Used In
 [Asset Name]            | [ID]        | [Zone name]
 [Asset Name]            | [ID]        | [Zone name]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-HAND-CRAFTED PROPS (Built from Roblox Primitives)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Prop Name               | Construction Plan                    | Zone
+AI GENERATED 3D MESHES & MATERIALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prop / Material         | AI Generation Prompt                 | Zone
 ────────────────────────────────────────────────────────────────────
-[Prop]                  | [e.g., "3 Parts: slab + 2 sides"]    | [Zone]
-[Prop]                  | [e.g., "Cylinder + small sphere"]    | [Zone]
+[Prop]                  | [e.g., "generate_mesh(...)"]         | [Zone]
+[Material]              | [e.g., "generate_material(...)"]     | [Zone]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 LIGHTING PLAN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -51,14 +51,15 @@ Back            | [Name]                        | [ID]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CLOTHING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Face:           [Face Asset ID] or "Default Roblox face"
+Face:           [Custom Image ID found via search_asset(assetType="Image")]
 Shirt:          [Shirt Asset ID] or "None (body color used)"
 Pants:          [Pants Asset ID] or "None (body color used)"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-HAND-CRAFTED ACCESSORIES (Built from Primitives)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[Item]          | [Construction plan, e.g., "2 cylinders: blade + handle"]
-[Item]          | [Construction plan]
+AI GENERATED 3D MESHES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[Item]          | [AI generation prompt, e.g., "generate_mesh(textPrompt=...)"]
+[Item]          | [AI generation prompt]
                   None (all accessories sourced from Catalog)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SPECIAL EFFECTS

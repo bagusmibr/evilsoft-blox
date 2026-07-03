@@ -36,13 +36,15 @@ Search the web for:
 - Color palettes and material references for the theme
 - Roblox community builds of similar maps for inspiration (DevForum, YouTube)
 
-### 2c. Roblox Toolbox Asset Search
+### 2c. Asset Sourcing & Material Generation
 
 For each major prop category:
 1. Search Roblox Toolbox/Catalog for free community assets
-2. Filter by: Free, relevant name, reasonable poly count
+2. Filter by: Free, relevant name, reasonable poly count. Always append keywords like "PBR", "Realistic", or "High Quality" if a realistic theme is desired.
 3. Prefer assets from Verified Creators when available
 4. Record: Asset Name, Asset ID, Creator, what it represents
+
+For surfaces (walls, floors, terrain), do NOT use standard materials like SmoothPlastic or Grass. Use the `generate_material` MCP tool to create high-quality PBR materials (e.g. `generate_material(prompt="realistic weathered wood plank")`).
 
 Asset categories to check:
 - Structural: walls, floors, roofs, pillars, stairs, doors, windows
@@ -51,12 +53,12 @@ Asset categories to check:
 - Urban: streetlights, benches, trash cans, fences, road markings
 - Decorative: signs, posters, paintings, rugs, plants, lamps
 
-### 2d. Gap Analysis
+### 2d. Gap Analysis & 3D Generative AI
 
-For any prop where no suitable free asset exists:
-- Mark it as "BUILD FROM SCRATCH"
-- Plan how to construct it from Roblox primitives (Parts, WedgeParts, Cylinders, Spheres)
-- Document the construction plan (e.g., "counter = 3 Parts: base slab + side panels")
+For any prop where no suitable free asset exists in the Toolbox:
+- Do NOT build it from basic primitives (Parts/Cylinders).
+- Mark it as "AI GENERATED MESH"
+- Plan to use `generate_mesh(textPrompt="...")` or `generate_procedural_model(prompt="...")` to create a high-quality 3D model for it.
 
 ---
 
@@ -84,12 +86,12 @@ ZONE BREAKDOWN
 [Zone 1 Name]
   Purpose:   [What happens here]
   Key Props: [List of props]
-  Assets:    [Toolbox IDs or "Built from scratch"]
+  Assets:    [Toolbox IDs or "AI Generated Mesh"]
 
 [Zone 2 Name]
   Purpose:   [What happens here]
   Key Props: [List of props]
-  Assets:    [Toolbox IDs or "Built from scratch"]
+  Assets:    [Toolbox IDs or "AI Generated Mesh"]
   ...
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COMMUNITY ASSETS TO INSERT
@@ -97,10 +99,10 @@ COMMUNITY ASSETS TO INSERT
 [Asset Name]     | ID: [AssetID]  | Used for: [purpose]
 [Asset Name]     | ID: [AssetID]  | Used for: [purpose]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-HAND-CRAFTED PROPS (Built from Roblox Primitives)
+AI GENERATED 3D MESHES & MATERIALS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[Prop Name]   → [Construction plan, e.g., "3 Parts: base + 2 side panels"]
-[Prop Name]   → [Construction plan]
+[Prop/Material Name]   → [AI prompt to be used via generate_mesh/generate_material]
+[Prop/Material Name]   → [AI prompt to be used]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 LIGHTING PLAN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -184,16 +186,18 @@ insert_asset(assetId = [ASSET_ID])
 Position each asset according to the zone layout.
 If insert fails: switch to hand-crafted version, note it in the report.
 
-### 4d. Build Hand-Crafted Props
+### 4d. Generate 3D Models and Materials via AI
 
-For all "BUILD FROM SCRATCH" items, construct from primitives.
+For all items marked as "AI GENERATED MESH" or custom surfaces:
+1. Call `generate_mesh(textPrompt="...")` or `generate_procedural_model(prompt="...")` to generate the 3D asset directly in the workspace.
+2. Call `generate_material(prompt="...")` to generate custom PBR materials, and apply them to your map's BasePart surfaces.
 
-Always include interior details for indoor spaces:
-- Shops: counters, product shelves, product displays, cashier station, price tags
-- Offices: desks, computers (block form), chairs, filing cabinets, whiteboards
-- Restaurants: tables, chairs, kitchen counter, menu boards
-- Classrooms: student desks, teacher desk, blackboard, shelves
-- Dungeons: pillars, torches (PointLight + Part), breakable debris
+Do NOT use primitive `Instance.new("Part")` clusters for props unless explicitly requested by the user.
+
+Always include interior details for indoor spaces by generating meshes for:
+- Shops: counters, product shelves, cashier station
+- Offices: desks, computers, chairs, filing cabinets
+- Dungeons: pillars, torches, debris
 
 Use grouping (Model instances) to keep Workspace organized.
 
@@ -235,16 +239,16 @@ Zones Built:  [N]
 ASSET SUMMARY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Community assets inserted: [N]
-Hand-crafted from primitives: [N]
-Failed inserts (switched to primitives): [N]
+AI Generated 3D Meshes: [N]
+AI Generated PBR Materials: [N]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 WORKSPACE STRUCTURE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 [Workspace hierarchy tree]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WHAT WAS HAND-CRAFTED
+AI GENERATION LOG
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[List of all props built from scratch and how]
+[List of all props/materials generated via AI tools]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 NEXT STEPS (Optional)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

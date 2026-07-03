@@ -2,19 +2,20 @@
 name: evilsoft-skillblox
 description: >
   Evilsoft-Skillblox is a unified Roblox creation skill merging three sources:
-  [1] ClaudeBlox — 21-agent autonomous pipeline (roblox-architect, luau-scripter, world-builder,
-  lighting-director, enemy-designer, roblox-publisher) for building complete Roblox games.
-  [2] Roblox Game Skill — reference: Luau, DataStore, combat, monetization, security,
-  GUI, networking, performance, animation/VFX, inventory, 7 workflows, full/standard/offline MCP.
-  [3] NEW Evilsoft Visual Creation Engine: image-to-character (searches web + Catalog, generates 2D
-  preview + structured text, awaits approval, builds R6/R15 in Studio, saves to ServerStorage as
-  YYYYMMDD_Name, delivers Luau script); image-to-map (searches web + Toolbox, previews layout, asks
-  before clearing Workspace, builds at max scale with community assets or hand-crafted primitives);
-  combined mode for character + map in one prompt. MCP required or skill halts. No content
-  restrictions. Triggers: "evilsoft-skillblox", "skillblox", or "roblox" + creation verb or image.
+  [1] ClaudeBlox — 21-agent autonomous pipeline (roblox-architect, luau-scripter, world-builder)
+  for building complete games end-to-end.
+  [2] Roblox Game Skill — technical reference: Luau, DataStore, combat, monetization, security,
+  networking, performance, 7 workflows, 3 MCP modes.
+  [3] NEW Visual Creation Engine v1.1.0 — Generative 3D: analyzes images/prompts, generates
+  PBR materials and 3D meshes via AI (generate_mesh/procedural_model).
+  Image-to-Character: searches Catalog, generates 3D mask/accessories, outputs preview, builds
+  R6/R15 in Studio. Image-to-Map: searches Toolbox (PBR/High-Quality), generates AI textures
+  and 3D props (no primitives), asks before clearing Workspace, outputs preview, builds at
+  max scale. RULES: MCP required; no Workspace clear without confirmation; preview before build.
+  TRIGGERS: "evilsoft-skillblox", "skillblox", or "roblox" + creation verb/image attached.
 
 user-invocable: true
-version: "1.0.0"
+version: "1.1.0"
 author: "Evilsoft"
 sources:
   - claudeblox-main (21-agent autonomous pipeline)
@@ -56,8 +57,8 @@ Match user intent and load the correct files:
 
 | User Intent | Load |
 |---|---|
-| Create character from image/description | `workflows/character-creation.md` + `references/character-customization.md` + `references/asset-sourcing.md` |
-| Build a map from image/description/layout | `workflows/map-creation.md` + `references/map-building-from-scratch.md` + `references/asset-sourcing.md` |
+| Create character from image/description | `workflows/character-creation.md` + `references/generative-3d-modeling.md` + `references/character-customization.md` + `references/asset-sourcing.md` |
+| Build a map from image/description/layout | `workflows/map-creation.md` + `references/generative-3d-modeling.md` + `references/asset-sourcing.md` |
 | Create character + map together | `workflows/combined-creation.md` |
 | Build a game (simulator/tycoon/RPG/obby/horror) | `workflows/new-game.md` + invoke agents from `agents/` directory |
 | Fix bug / debug | `workflows/debug-loop.md` + `references/mcp-orchestration.md` |
@@ -99,7 +100,7 @@ Detect available MCP mode before any Studio operation:
 | User requests minor revision | Adjust in-place, no rebuild |
 | User requests major revision (rig swap, theme change) | Assess → rebuild if necessary |
 | Workspace has existing content before map build | Ask permission before clearing ANYTHING |
-| Asset not found in Toolbox | Build from primitives, notify user what was hand-crafted |
+| Asset not found in Toolbox | Generate 3D model via `generate_mesh` or `generate_procedural_model` |
 | Ambiguous request | Ask 1 clarifying question, then route |
 | Character + map in same prompt | Use `workflows/combined-creation.md` |
 

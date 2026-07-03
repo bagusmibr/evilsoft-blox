@@ -13,7 +13,7 @@ When looking for assets, follow this priority order:
 2. **Roblox Catalog (Free accessories)** — for character accessories
 3. **Roblox DevForum asset threads** — community-shared free packs
 4. **Internet search for asset IDs** — roblox.com/library searches
-5. **Build from scratch** — when nothing suitable is found
+5. **AI 3D Generation** — use `generate_mesh` or `generate_procedural_model` when no asset is found
 
 ---
 
@@ -27,8 +27,8 @@ search_asset(query = "[search term]", assetType = "Model")
 Effective search strategies:
 - Use simple, specific terms: "wooden table", "brick wall", "street lamp"
 - Try theme-specific: "japanese lantern", "sci-fi panel", "horror door"
-- Try material-specific: "metal crate", "stone pillar", "wooden shelf"
-- Try function-specific: "shop counter", "classroom desk", "hospital bed"
+- Append quality keywords: **"PBR", "Realistic", "High Quality"** (Crucial for eliminating basic/primitive asset bias)
+- For Materials: Try searching `assetType="Image"` or `assetType="MeshPart"`.
 
 ### Asset Evaluation Criteria
 
@@ -149,115 +149,35 @@ end
 
 ---
 
-## Fallback: Build from Scratch
+## Fallback: AI 3D Generative Modeling
 
-When no suitable asset is found, build from Roblox primitives.
+When no suitable asset is found, DO NOT build it from Roblox primitives. Instead, rely on generative AI tools to create high-fidelity assets.
 
-### Common Props Construction Guide
+### 1. Generating Props/Accessories (`generate_mesh`)
+If you need a static prop (e.g., a sword, a mask, a trash can, a rock), use the `generate_mesh` tool.
 
-#### Shop Counter
 ```luau
--- Counter = wide flat slab + kickboard
-local counter = Instance.new("Model")
-counter.Name = "ShopCounter"
-
-local top = Instance.new("Part")
-top.Size = Vector3.new(8, 0.4, 3)
-top.BrickColor = BrickColor.new("White")
-top.Material = Enum.Material.SmoothPlastic
-top.CFrame = CFrame.new(0, 3, 0)
-top.Parent = counter
-
-local base = Instance.new("Part")
-base.Size = Vector3.new(8, 2.5, 3)
-base.BrickColor = BrickColor.new("Light grey")
-base.Material = Enum.Material.SmoothPlastic
-base.CFrame = CFrame.new(0, 1.45, 0)
-base.Parent = counter
+-- AI Thought Process:
+-- "I need a realistic wooden chair. I didn't find a good PBR one in the Toolbox. I will use generate_mesh."
+-- Tool Call: generate_mesh(textPrompt="a highly detailed realistic wooden chair with PBR textures")
 ```
 
-#### Simple Chair
+### 2. Generating Customizable Structures (`generate_procedural_model`)
+If you need a more complex object that the user might want to edit later (e.g., a car, a table with adjustable legs), use `generate_procedural_model`.
+
 ```luau
-local chair = Instance.new("Model")
-chair.Name = "Chair"
-
-local seat = Instance.new("Part")
-seat.Size = Vector3.new(2, 0.2, 2)
-seat.BrickColor = BrickColor.new("Brown")
-seat.CFrame = CFrame.new(0, 1.5, 0)
-seat.Parent = chair
-
-local backrest = Instance.new("Part")
-backrest.Size = Vector3.new(2, 2, 0.2)
-backrest.BrickColor = BrickColor.new("Brown")
-backrest.CFrame = CFrame.new(0, 2.5, -1)
-backrest.Parent = chair
-
--- 4 legs
-for i, pos in ipairs({
-    Vector3.new(0.8, 0.75, 0.8),
-    Vector3.new(-0.8, 0.75, 0.8),
-    Vector3.new(0.8, 0.75, -0.8),
-    Vector3.new(-0.8, 0.75, -0.8),
-}) do
-    local leg = Instance.new("Part")
-    leg.Size = Vector3.new(0.2, 1.5, 0.2)
-    leg.BrickColor = BrickColor.new("Brown")
-    leg.CFrame = CFrame.new(pos)
-    leg.Parent = chair
-end
+-- AI Thought Process:
+-- "I need a shop counter. I will use generate_procedural_model."
+-- Tool Call: generate_procedural_model(prompt="a modern shop counter with adjustable length and color")
 ```
 
-#### Product on Shelf
+### 3. Generating Realistic Materials (`generate_material`)
+If you are coloring walls, floors, or terrain, never use the default `Enum.Material` for realistic builds. Use `generate_material`.
+
 ```luau
--- Simple can/bottle product
-local product = Instance.new("Part")
-product.Shape = Enum.PartType.Cylinder
-product.Size = Vector3.new(1, 0.6, 0.6)
-product.BrickColor = BrickColor.new("Bright red")
-product.Material = Enum.Material.SmoothPlastic
-product.CFrame = CFrame.new(0, 0, 0)
-```
-
-#### Cashier Station (POS Terminal)
-```luau
-local pos = Instance.new("Model")
-pos.Name = "CashierTerminal"
-
-local screen = Instance.new("Part")
-screen.Size = Vector3.new(1.5, 1.2, 0.1)
-screen.BrickColor = BrickColor.new("Black")
-screen.Material = Enum.Material.Neon
-screen.CFrame = CFrame.new(0, 0.6, 0)
-screen.Parent = pos
-
-local base = Instance.new("Part")
-base.Size = Vector3.new(1.5, 0.1, 1)
-base.BrickColor = BrickColor.new("Dark grey")
-base.CFrame = CFrame.new(0, 0, 0)
-base.Parent = pos
-```
-
-#### Wall Shelf
-```luau
-local shelf = Instance.new("Model")
-shelf.Name = "WallShelf"
-
-local board = Instance.new("Part")
-board.Size = Vector3.new(6, 0.2, 1)
-board.BrickColor = BrickColor.new("Reddish brown")
-board.Material = Enum.Material.Wood
-board.CFrame = CFrame.new(0, 0, 0)
-board.Parent = shelf
-
--- Brackets
-for _, x in ipairs({-2.5, 2.5}) do
-    local bracket = Instance.new("WedgePart")
-    bracket.Size = Vector3.new(0.2, 0.8, 1)
-    bracket.BrickColor = BrickColor.new("Dark grey")
-    bracket.CFrame = CFrame.new(x, -0.5, 0) * CFrame.Angles(0, 0, math.rad(x > 0 and 90 or -90))
-    bracket.Parent = shelf
-end
+-- AI Thought Process:
+-- "I need realistic grass for the floor."
+-- Tool Call: generate_material(prompt="high resolution realistic lush green grass, PBR")
 ```
 
 ---
@@ -271,10 +191,10 @@ ASSET LOG — [Build Name]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 [Asset Name]       | ID: [ID]    | Zone: [Zone] | Type: Toolbox Model
 [Asset Name]       | ID: [ID]    | Zone: [Zone] | Type: Catalog Accessory
-[Prop Name]        | NO ID       | Zone: [Zone] | Type: Built from Primitives
+[Prop Name]        | AI GEN      | Zone: [Zone] | Type: AI Generated 3D Mesh
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Total Toolbox:    [N]
 Total Catalog:    [N]
-Total Scratch:    [N]
+Total AI Meshes:  [N]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
