@@ -8,7 +8,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Claude_Desktop-Skill-blue?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Desktop Skill"/>
   <img src="https://img.shields.io/badge/Roblox_Studio-MCP-red?style=for-the-badge&logo=roblox&logoColor=white" alt="Roblox MCP"/>
-  <img src="https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge" alt="Version"/>
+  <img src="https://img.shields.io/badge/Version-1.1.0-green?style=for-the-badge" alt="Version"/>
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License"/>
 </p>
 
@@ -35,7 +35,7 @@ Give the AI a character image (from anime, games, photos, or any artwork) along 
 6. Save it to `ServerStorage` as `YYYYMMDD_CharacterName`
 7. Deliver a **complete Luau script** ready to copy-paste, with a detailed explanation in chat
 
-> **No 3D modeling required.** Characters are built by modifying the default Roblox R6/R15 rig, adding Catalog accessories, and crafting custom details from Roblox primitives. No external software like Blender or Maya is needed.
+> **No 3D modeling required.** Characters are built by modifying the default Roblox R6/R15 rig, adding Catalog accessories, and generating custom 3D meshes using Roblox's built-in Generative AI. No external software like Blender or Maya is needed.
 
 ---
 
@@ -48,7 +48,7 @@ Give the AI a location image, a top-down layout, or a text description, and it w
 4. Ask for explicit permission **before** clearing the Workspace
 5. Build the map at maximum scale using:
    - Free community assets from Toolbox
-   - Hand-crafted props from Roblox primitives when assets aren't available
+   - AI Generated 3D meshes when assets aren't available
    - Full interior detail (chairs, tables, counters, shelves, products, cashiers, etc.)
 6. Set up lighting and atmosphere to match the map's theme
 
@@ -140,7 +140,7 @@ roblox-architect
 | `architecture-patterns.md` | Service patterns, OOP in Luau, module design |
 | `character-customization.md` | R6/R15 modification techniques |
 | `asset-sourcing.md` | Finding and inserting free community assets |
-| `map-building-from-scratch.md` | Building props and interiors from primitives |
+| `generative-3d-modeling.md` | AI generating custom 3D meshes and PBR materials |
 | `mcp-requirements.md` | MCP connection verification and error handling |
 | `sharp-edges.md` | 12 critical Roblox gotchas with severity ratings |
 | `mcp-orchestration.md` | MCP tool usage patterns |
@@ -303,7 +303,7 @@ patrols and chases if it sees the player. Dark atmosphere, flickering lights.
 | MCP not detected | **HALT** — prompt user to reconnect, no workaround scripts generated |
 | Character or map request | Always show a **preview first**, wait for approval before building |
 | Workspace has existing content | **Ask permission** before removing anything |
-| Asset not found in Toolbox | Build from primitives, notify user what was hand-crafted |
+| Asset not found in Toolbox | Generate using AI tools (mesh/material), notify user what was AI-generated |
 | Minor revision (color change, reposition) | Apply in-place, no full rebuild |
 | Major revision (rig swap, theme change) | Rebuild from scratch after confirmation |
 | Ambiguous request | Ask **1 clarifying question**, then proceed |
@@ -368,7 +368,7 @@ evilsoft-skillblox/
 - Ensure the place is published (MCP requires a published place to function)
 
 **Toolbox asset insertion fails**
-- The AI will automatically switch to building the prop from primitives
+- The AI will automatically switch to generating the prop using AI (`generate_mesh`)
 - The final report will list which assets were replaced and how
 
 ---
